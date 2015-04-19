@@ -31,3 +31,5 @@ gulp.task('uglify', function () {
     }))
     .pipe(gulp.dest('dist'));
 });
+
+gulp.task('build', ['concat', 'doc', 'uglify']);
