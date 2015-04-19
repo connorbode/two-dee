@@ -18,7 +18,7 @@ gulp.task('concat', function () {
 
 gulp.task('doc', function () {
   var options = {};
-  return gulp.src(['dist/two-dee.js'])
+  return gulp.src(['src/**/*.js', '!src/**/*.spec.js'])
     .pipe(docco(options))
     .pipe(gulp.dest('doc'));
 });
