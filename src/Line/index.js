@@ -9,6 +9,13 @@ var LineConstructors = {
   // and the `yIntercept`
   createFromEquation: function (slope, yIntercept) {
     return new Line(slope, yIntercept);
+  },
+
+  // Creates a line from the `slope` of 
+  // the line and a `point` on the line
+  createFromSlopeAndPoint: function (slope, point) {
+    var yIntercept = point.y + slope * (-point.x);
+    return new Line(slope, yIntercept);
   }
 };
 
