@@ -20,4 +20,12 @@ describe('Line', function () {
     line.yIntercept.should.equal(0);
     line.slope.should.equal(1);
   });
+
+  it('creates a line from two points', function () {
+    var p1 = Point.create(2, 2);
+    var p2 = Point.create(3, 3);
+    var line = Line.createFromPoints(p1, p2);
+    line.yIntercept.should.equal(0);
+    line.slope.should.equal(1);
+  });
 });
