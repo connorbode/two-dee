@@ -3,8 +3,8 @@ describe('Line', function () {
   var Point;
 
   before(function (done) {
-    Line = require('./index');
-    Point = require('../Point');
+    Line = require('./Line');
+    Point = require('./Point');
     done();
   });
 

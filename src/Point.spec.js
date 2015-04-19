@@ -3,7 +3,7 @@ describe('Point', function () {
   var Point;
 
   before(function (done) {
-    Point = require('./index');
+    Point = require('./Point');
     done();
   });
 

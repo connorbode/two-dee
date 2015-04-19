@@ -1,4 +1,4 @@
-var Point = require('../Point');
+var Point = require('./Point');
 
 // Line
 // ----
