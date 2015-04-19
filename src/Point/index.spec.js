@@ -8,7 +8,7 @@ describe('Point', function () {
   });
 
   it('is accessible', function () {
-    var point = Point.create(1, 2);
+    var point = new Point(1, 2);
     point.x.should.equal(1);
     point.y.should.equal(2);
   });

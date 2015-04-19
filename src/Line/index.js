@@ -8,7 +8,7 @@ var Line = function (slope, yIntercept) {
   this.intersectionWithLine = function (line) {
     var x = (this.yIntercept - line.yIntercept) / (line.slope - this.slope);
     var y = this.slope * x + this.yIntercept;
-    return Point.create(x, y);
+    return new Point(x, y);
   };
 }
 
