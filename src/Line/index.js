@@ -1,6 +1,15 @@
+var Point = require('../Point');
+
 var Line = function (slope, yIntercept) {
   this.slope      = slope;
   this.yIntercept = yIntercept;
+
+  // Returns a point that 
+  this.intersectionWithLine = function (line) {
+    var x = (this.yIntercept - line.yIntercept) / (line.slope - this.slope);
+    var y = this.slope * x + this.yIntercept;
+    return Point.create(x, y);
+  };
 }
 
 var LineConstructors = {

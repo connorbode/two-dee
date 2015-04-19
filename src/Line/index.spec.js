@@ -28,4 +28,12 @@ describe('Line', function () {
     line.yIntercept.should.equal(0);
     line.slope.should.equal(1);
   });
+
+  it('calculates the intersection with another line', function () {
+    var line1 = Line.createFromEquation(-1, 2);
+    var line2 = Line.createFromEquation(1, 0);
+    var point = line1.intersectionWithLine(line2);
+    point.x.should.equal(1);
+    point.y.should.equal(1);
+  });
 });
