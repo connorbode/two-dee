@@ -1,37 +1,36 @@
 var Point = require('../Point');
 
+// Line
+// ----
+//
+// A line can be constructed by supplying
+// the slope and a y-intercept.
 var Line = function (slope, yIntercept) {
   this.slope      = slope;
   this.yIntercept = yIntercept;
 
-  // Returns a point that 
+  // Returns a point that represents
+  // the intersection of this line with
+  // another line.
   this.intersectionWithLine = function (line) {
     var x = (this.yIntercept - line.yIntercept) / (line.slope - this.slope);
     var y = this.slope * x + this.yIntercept;
     return new Point(x, y);
   };
-}
-
-var LineConstructors = {
-
-  // Creates a line given the `slope`
-  // and the `yIntercept`
-  createFromEquation: function (slope, yIntercept) {
-    return new Line(slope, yIntercept);
-  },
-
-  // Creates a line from the `slope` of 
-  // the line and a `point` on the line
-  createFromSlopeAndPoint: function (slope, point) {
-    var yIntercept = point.y + slope * (-point.x);
-    return new Line(slope, yIntercept);
-  },
-
-  // Creates a line from two Points, `p1` and `p2`
-  createFromPoints: function (p1, p2) {
-    var slope = (p2.y - p1.y) / (p2.x - p1.x);
-    return LineConstructors.createFromSlopeAndPoint(slope, p1);
-  }
 };
 
-module.exports = LineConstructors;
+// A line can also be constructed from
+// a slope and a point on the line
+Line.fromSlopeAndPoint = function (slope, point) {
+  var yIntercept = point.y + slope * (-point.x);
+  return new Line(slope, yIntercept);
+};
+
+// A line can also be constructed from two
+// points
+Line.fromPoints = function (p1, p2) {
+  var slope = (p2.y - p1.y) / (p2.x - p1.x);
+  return Line.fromSlopeAndPoint(slope, p1);
+};
+
+module.exports = Line;
