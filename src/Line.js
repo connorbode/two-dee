@@ -11,8 +11,8 @@ var Line = function (slope, yIntercept) {
   this._type = 'Line';
 
   // Returns a point that represents the
-  // intersection of this line with
-  // another line.
+  // intersection of this Line with
+  // another Line.
   var intersectionWithLine = function (line) {
     var x = (this.yIntercept - line.yIntercept) / (line.slope - this.slope);
     var y = this.slope * x + this.yIntercept;
