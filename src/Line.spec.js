@@ -32,7 +32,7 @@ describe('Line', function () {
   it('calculates the intersection with another line', function () {
     var line1 = new Line(-1, 2);
     var line2 = new Line(1, 0);
-    var point = line1.intersectionWithLine(line2);
+    var point = line1.intersectionWith(line2);
     point.x.should.equal(1);
     point.y.should.equal(1);
   });

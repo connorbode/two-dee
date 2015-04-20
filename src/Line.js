@@ -10,13 +10,24 @@ var Line = function (slope, yIntercept) {
   this.yIntercept = yIntercept;
   this._type = 'Line';
 
-  // Returns a point that represents
-  // the intersection of this line with
+  // Returns a point that represents the
+  // intersection of this line with
   // another line.
-  this.intersectionWithLine = function (line) {
+  var intersectionWithLine = function (line) {
     var x = (this.yIntercept - line.yIntercept) / (line.slope - this.slope);
     var y = this.slope * x + this.yIntercept;
     return new Point(x, y);
+  }.bind(this);
+
+  // Returns a point that represents
+  // the intersection of this line with
+  // another object
+  this.intersectionWith = function (other) {
+    switch (other._type) {
+      case "Line":
+        return intersectionWithLine(other);
+        break;
+    }
   };
 };
 
