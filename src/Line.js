@@ -8,6 +8,7 @@ var Point = require('./Point');
 var Line = function (slope, yIntercept) {
   this.slope      = slope;
   this.yIntercept = yIntercept;
+  this._type = 'Line';
 
   // Returns a point that represents
   // the intersection of this line with
