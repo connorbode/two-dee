@@ -10,6 +10,20 @@ var Line = function (slope, yIntercept) {
   this.yIntercept = yIntercept;
   this._type = 'Line';
 
+  // Generates a Point on the Line
+  // given a `y` value
+  this.pointFromY = function (y) {
+    var x = (y - yIntercept) / slope;
+    return new Point(x, y);
+  };
+
+  // Generates a Point on the Line
+  // given an `x` value
+  this.pointFromX = function (x) {
+    var y = slope * x + yIntercept;
+    return new Point(x, y);
+  };
+
   // Returns a point that represents the
   // intersection of this Line with
   // another Line.

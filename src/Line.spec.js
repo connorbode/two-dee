@@ -36,4 +36,16 @@ describe('Line', function () {
     point.x.should.equal(1);
     point.y.should.equal(1);
   });
+
+  it('generates a point from an x coordinate', function () {
+    var line = new Line(0.5, 0);
+    var point = line.pointFromX(2);
+    point.y.should.equal(1);
+  });
+
+  it('generates a point from a y coordinate', function () {
+    var line = new Line(0.5, 0);
+    var point = line.pointFromY(2);
+    point.x.should.equal(4);
+  });
 });
