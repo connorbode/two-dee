@@ -12,4 +12,17 @@ describe('Point', function () {
     point.x.should.equal(1);
     point.y.should.equal(2);
   });
+
+  it('can find the closest point', function () {
+    var p = new Point(0, 0);
+    var points = [
+      new Point(2, 2),
+      new Point(3, 2),
+      new Point(5, 4),
+      new Point(4, 2)
+    ];
+    var closest = p.closest(points);
+    closest.x.should.equal(2);
+    closest.y.should.equal(2);
+  });
 });
