@@ -1,10 +1,12 @@
 describe('Line', function () {
   var Line;
   var Point;
+  var Circle;
 
   before(function (done) {
     Line = require('./Line');
     Point = require('./Point');
+    Circle = require('./Circle');
     done();
   });
 
@@ -47,5 +49,32 @@ describe('Line', function () {
     var line = new Line(0.5, 0);
     var point = line.pointFromY(2);
     point.x.should.equal(4);
+  });
+
+  it('calculates no intersection with a circle', function () {
+    var circle = new Circle(new Point(1, 1), 1);
+    var line = new Line(0, 3);
+    var point = line.intersectionWith(circle);
+    expect(point).to.be.null;
+  });
+
+  it('calculates tangent intersection with a circle', function () {
+    var circle = new Circle(new Point(1, 1), 1);
+    var line = new Line(0, 2);
+    var points = line.intersectionWith(circle);
+    points.length.should.equal(1);
+    points[0].x.should.equal(1);
+    points[0].y.should.equal(2);
+  });
+
+  it('calculates secant intersection with a circle', function () {
+    var circle = new Circle(new Point(1, 1), 1);
+    var line = new Line(0, 1);
+    var points = line.intersectionWith(circle);
+    points.length.should.equal(2);
+    points[0].x.should.equal(0);
+    points[0].y.should.equal(1);
+    points[1].x.should.equal(2);
+    points[1].y.should.equal(1);
   });
 });

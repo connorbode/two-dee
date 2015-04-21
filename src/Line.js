@@ -1,4 +1,5 @@
-var Point = require('./Point');
+var solveQuadraticEquation  = require('solve-quadratic-equation');
+var Point                   = require('./Point');
 
 // Line
 // ----
@@ -33,6 +34,32 @@ var Line = function (slope, yIntercept) {
     return new Point(x, y);
   }.bind(this);
 
+  // Calculates the intersection of this Line
+  // with a Circle.  Returns null if there is
+  // no intersection.  Otherwise, an array
+  // containing one or two points will be
+  // returned.
+  var intersectionWithCircle = function (circle) {
+
+    // solve for x
+    var polynomial = [];
+    polynomial[0] = Math.pow(this.slope, 2) + 1;
+    polynomial[1] = 2 * (this.slope * (this.yIntercept - circle.center.y) - circle.center.x);
+    polynomial[2] = Math.pow(this.yIntercept - circle.center.y, 2) 
+                  + Math.pow(circle.center.x, 2) 
+                  - Math.pow(circle.radius, 2);
+
+    var roots = solveQuadraticEquation(polynomial[0], polynomial[1], polynomial[2]);
+
+    if (roots.length === 0)
+      return null;
+
+    return roots.map(function (root) {
+      return this.pointFromX(root);
+    }.bind(this));
+
+  }.bind(this);
+
   // Returns a point that represents
   // the intersection of this line with
   // another object
@@ -40,7 +67,8 @@ var Line = function (slope, yIntercept) {
     switch (other._type) {
       case "Line":
         return intersectionWithLine(other);
-        break;
+      case "Circle":
+        return intersectionWithCircle(other);
     }
   };
 };
