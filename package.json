@@ -2,7 +2,7 @@
   "name": "two-dee",
   "version": "1.0.0",
   "description": "A lightweight lib for 2D geometry",
-  "main": "index.js",
+  "main": "dist/two-dee.min.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
