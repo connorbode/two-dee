@@ -6,8 +6,9 @@ var Point                   = require('./Point');
 //
 // A line can be constructed by supplying
 // the slope and a y-intercept.
-var Line = function (slope, yIntercept) {
+var Line = function (slope, yIntercept, xIntercept) {
   this.slope      = slope;
+  this.xIntercept = xIntercept;
   this.yIntercept = yIntercept;
   this._type = 'Line';
 
@@ -76,8 +77,16 @@ var Line = function (slope, yIntercept) {
 // A line can also be constructed from
 // a slope and a point on the line
 Line.fromSlopeAndPoint = function (slope, point) {
-  var yIntercept = point.y + slope * (-point.x);
-  return new Line(slope, yIntercept);
+  var xIntercept;
+  var yIntercept;
+
+  if (slope === Infinity) {
+    yIntercept = NaN;
+    xIntercept = point.x;
+  }
+  else
+    yIntercept = point.y + slope * (-point.x);
+  return new Line(slope, yIntercept, xIntercept);
 };
 
 // A line can also be constructed from two
