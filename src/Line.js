@@ -15,14 +15,27 @@ var Line = function (slope, yIntercept, xIntercept) {
   // Generates a Point on the Line
   // given a `y` value
   this.pointFromY = function (y) {
-    var x = (y - yIntercept) / slope;
+    var x;
+
+    if (isFinite(slope)) {
+      x = (y - yIntercept) / slope;
+    } else {
+      x = xIntercept;
+    }
+
     return new Point(x, y);
   };
 
   // Generates a Point on the Line
   // given an `x` value
   this.pointFromX = function (x) {
-    var y = slope * x + yIntercept;
+    var y;
+
+    if (isFinite(slope))
+      y = slope * x + yIntercept;
+    else
+      y = 0;
+
     return new Point(x, y);
   };
 
@@ -42,22 +55,37 @@ var Line = function (slope, yIntercept, xIntercept) {
   // returned.
   var intersectionWithCircle = function (circle) {
 
-    // solve for x
+    // if the line is vertical, switch everything to horizontal so
+    // the same method can be used
+    var line;
+    var circleCenter;
+    if (!isFinite(this.slope)) {
+      line = new Line(0, this.xIntercept);
+      circleCenter = new Point(circle.center.y, circle.center.x);
+    } else {
+      line = this;
+      circleCenter = circle.center;
+    }
+
+    var roots;
     var polynomial = [];
-    polynomial[0] = Math.pow(this.slope, 2) + 1;
-    polynomial[1] = 2 * (this.slope * (this.yIntercept - circle.center.y) - circle.center.x);
-    polynomial[2] = Math.pow(this.yIntercept - circle.center.y, 2) 
-                  + Math.pow(circle.center.x, 2) 
+    polynomial[0] = Math.pow(line.slope, 2) + 1;
+    polynomial[1] = 2 * (line.slope * (line.yIntercept - circleCenter.y) - circleCenter.x);
+    polynomial[2] = Math.pow(line.yIntercept - circleCenter.y, 2) 
+                  + Math.pow(circleCenter.x, 2) 
                   - Math.pow(circle.radius, 2);
 
-    var roots = solveQuadraticEquation(polynomial[0], polynomial[1], polynomial[2]);
+    roots = solveQuadraticEquation(polynomial[0], polynomial[1], polynomial[2]);
 
-    if (roots.length === 0)
-      return null;
-
-    return roots.map(function (root) {
-      return this.pointFromX(root);
-    }.bind(this));
+    if (isFinite(this.slope)) {
+      return roots.map(function (root) {
+        return this.pointFromX(root);
+      }.bind(this));
+    } else {
+      return roots.map(function (root) {
+        return this.pointFromY(root);
+      }.bind(this));
+    }
 
   }.bind(this);
 

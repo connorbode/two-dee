@@ -63,8 +63,8 @@ describe('Line', function () {
   it('calculates no intersection with a circle', function () {
     var circle = new Circle(new Point(1, 1), 1);
     var line = new Line(0, 3);
-    var point = line.intersectionWith(circle);
-    expect(point).to.be.null;
+    var points = line.intersectionWith(circle);
+    points.length.should.equal(0);
   });
 
   it('calculates tangent intersection with a circle', function () {
@@ -85,5 +85,32 @@ describe('Line', function () {
     points[0].y.should.equal(1);
     points[1].x.should.equal(2);
     points[1].y.should.equal(1);
+  });
+
+  it('calculates no intersection of a vertical line with a circle', function () {
+    var circle = new Circle(new Point(2, 2), 1);
+    var line = Line.fromPoints(new Point(0, 0), new Point(0, 1));
+    var points = line.intersectionWith(circle);
+    points.length.should.equal(0);
+  });
+
+  it('calculates tangent intersection of a vertical line with a circle', function () {
+    var circle = new Circle(new Point(1, 1), 1);
+    var line = Line.fromPoints(new Point(0, 0), new Point(0, 1));
+    var points = line.intersectionWith(circle);
+    points.length.should.equal(1);
+    points[0].x.should.equal(0);
+    points[0].y.should.equal(1);
+  });
+
+  it('calculates secant intersection of a vertical line with a circle', function () {
+    var circle = new Circle(new Point(1, 1), 1);
+    var line = Line.fromPoints(new Point(1, 0), new Point(1, 1));
+    var points = line.intersectionWith(circle);
+    points.length.should.equal(2);
+    points[0].x.should.equal(1);
+    points[0].y.should.equal(0);
+    points[1].x.should.equal(1);
+    points[1].y.should.equal(2);
   });
 });
