@@ -108,12 +108,12 @@ Line.fromSlopeAndPoint = function (slope, point) {
   var xIntercept;
   var yIntercept;
 
-  if (slope === Infinity) {
+  if (isFinite(slope))
+    yIntercept = point.y + slope * (-point.x);
+  else {
     yIntercept = NaN;
     xIntercept = point.x;
   }
-  else
-    yIntercept = point.y + slope * (-point.x);
   return new Line(slope, yIntercept, xIntercept);
 };
 

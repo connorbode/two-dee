@@ -40,6 +40,15 @@ describe('Line', function () {
     line.xIntercept.should.equal(50);
   });
 
+  it('creates another line from two points (regression)', function () {
+    var p1 = new Point(50, 80);
+    var p2 = new Point(50, 0);
+    var line = Line.fromPoints(p1, p2);
+    isNaN(line.yIntercept).should.be.true;
+    isFinite(line.slope).should.be.false;
+    line.xIntercept.should.equal(50);
+  });
+
   it('calculates the intersection with another line', function () {
     var line1 = new Line(-1, 2);
     var line2 = new Line(1, 0);
